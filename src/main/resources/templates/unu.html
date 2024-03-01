@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:object="${alegere1}">
+    <div th:object="${alegere2}">
+    <div th:text="${alegere1.alegere}"></div>
+    <form th:action="@{/unu}" method="POST">
+        <button type="submit" th:value="${alegere1.drum}" th:text="${alegere1.alegere}" name="al"></button>
+        <button type="submit" th:value="${alegere2.drum}" th:text="${alegere2.alegere}" name="al"></button>
+    </form>
+
+</div>
+</body>
+</html>
