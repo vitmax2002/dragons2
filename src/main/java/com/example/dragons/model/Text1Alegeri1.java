@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "text1_alegeri1")
+@Table(name = "alegeri_alegeri")
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
@@ -21,10 +21,10 @@ public class Text1Alegeri1 {
     private int id;
 
     @OneToMany
-    @JoinColumn(name = "id_text1")
-    private List<Texte> texte;
+    @JoinColumn(name = "id_kk1")
+    private List<Alegeri> alegeri1;
 
     @OneToMany
-    @JoinColumn(name = "id_alegeri1")
-    private List<Alegeri> alegeri;
+    @JoinColumn(name = "id_fk2")
+    private List<Alegeri> alegeri2;
 }

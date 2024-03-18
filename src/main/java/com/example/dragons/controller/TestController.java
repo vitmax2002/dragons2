@@ -28,11 +28,12 @@ public class TestController {
 
     @GetMapping
         public ResponseEntity<List<Object>> metoda(@RequestParam(name = "val") Integer val){
-        List<String> obj= text1Alegeri1.valorile(val);
+        List<String> obj= text1Alegeri1.valorile2(val);
         List<String> obj2=new ArrayList<>();
         List<Object> obj3=new ArrayList<>();
         List<String> alegerile=new ArrayList<>();
         List<String> drumurile=new ArrayList<>();
+        System.out.println(obj);
 
         for(String element:obj){
             String[] str=element.split(",");
