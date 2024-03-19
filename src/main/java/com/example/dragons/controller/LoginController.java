@@ -41,7 +41,7 @@ public class LoginController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Parola este gresita");
             }
         }
-        UserDto userDto=new UserDto(user2.getNickname(), user2.getRoomId());
+        UserDto userDto=new UserDto(user2.getUsername(), user2.getRoomId());
         return ResponseEntity.ok(userDto);
     }
 }
