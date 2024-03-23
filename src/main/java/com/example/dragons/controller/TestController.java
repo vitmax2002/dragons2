@@ -1,5 +1,6 @@
 package com.example.dragons.controller;
 
+import com.example.dragons.model.RaspunsDto;
 import com.example.dragons.model.Text1Alegeri1;
 import com.example.dragons.repository.Text1Alegeri1Repository;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,9 @@ public class TestController {
 //    }
 
 
-    @GetMapping
-        public ResponseEntity<List<Object>> metoda(@RequestParam(name = "val") Integer val){
+    @PostMapping
+    public ResponseEntity<RaspunsDto> metoda(@RequestParam(name = "roomId") Integer val){
+        System.out.println(val);
         List<String> obj= text1Alegeri1.valorile2(val);
         List<String> obj2=new ArrayList<>();
         List<Object> obj3=new ArrayList<>();
@@ -58,7 +60,9 @@ public class TestController {
         obj3.add(obj2.get(0));
         obj3.add(alegerile);
         obj3.add(drumurile);
+        RaspunsDto raspuns=new RaspunsDto(obj2.get(0),alegerile,drumurile);
 
-        return ResponseEntity.ok(obj3);
+//        return ResponseEntity.ok(obj3);
+        return ResponseEntity.ok(raspuns);
     }
 }
