@@ -16,7 +16,7 @@ public interface Text1Alegeri1Repository extends JpaRepository<Text1Alegeri1,Int
 //            " where text1.id=:val")
 //    List<String> valorile(@Param("val")int val);
 
-    @Query(nativeQuery = true,value = "select a.textul, a2.textul,a2.id from alegeri as a" +
+    @Query(nativeQuery = true,value = "select a.textul2, a2.textul,a2.id from alegeri as a" +
             " inner join alegeri_alegeri as aa" +
             " on a.id=aa.id_kk1" +
             " inner join alegeri as a2" +

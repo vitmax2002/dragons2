@@ -23,4 +23,7 @@ public class Alegeri {
 
     @Column(name = "drum")
     private int drum;
+
+    @Column(name = "textul2")
+    private String text;
 }
