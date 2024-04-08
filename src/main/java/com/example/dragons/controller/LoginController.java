@@ -1,14 +1,16 @@
 package com.example.dragons.controller;
 
-import com.example.dragons.model.User;
-import com.example.dragons.model.UserDto;
-import com.example.dragons.model.UserDto2;
+import com.example.dragons.model.*;
+import com.example.dragons.repository.HeroesRepository;
 import com.example.dragons.repository.UserRepository;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,9 +19,11 @@ import java.util.Optional;
 public class LoginController {
 
     private final UserRepository userRepository;
+    private final HeroesRepository heroesRepository;
 
-    public LoginController(UserRepository userRepository) {
+    public LoginController(UserRepository userRepository, HeroesRepository heroesRepository) {
         this.userRepository = userRepository;
+        this.heroesRepository = heroesRepository;
     }
 
     @PostMapping
@@ -41,7 +45,12 @@ public class LoginController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Parola este gresita");
             }
         }
-        UserDto userDto=new UserDto(user2.getUsername(), user2.getRoomId());
+        List<Heroes> heroes = heroesRepository.findByUserFk(user2.getId());
+        List<HeroesDto> heroseDto =new ArrayList<>();
+        for(var hero: heroes){
+            heroseDto.add(new HeroesDto(hero.getId(),hero.getHp(),hero.getName(),hero.getClasa(),hero.getRoomId()));
+        }
+        UserDto userDto=new UserDto(user2.getUsername(), heroseDto);
         return ResponseEntity.ok(userDto);
     }
 }
