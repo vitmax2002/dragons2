@@ -1,7 +1,10 @@
 package com.example.dragons.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.io.Serializable;
 
 @Entity
 @Data
@@ -10,7 +13,7 @@ import lombok.*;
 @Getter
 @Setter
 @Table(name = "heroes")
-public class Heroes {
+public class Heroes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,7 +25,7 @@ public class Heroes {
     private Integer roomId;
     @Column(name = "class")
     private String clasa;
-    @Column(name = "constitution", columnDefinition = "int default 0")
+    @Column(name = "constitution")
     private Integer constitution;
     @Column(name = "strength")
     private Integer strength;
@@ -34,7 +37,8 @@ public class Heroes {
     private Integer wisdom;
     @Column(name = "dexterity")
     private Integer dexterity;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_fk")
+    @JsonIgnore
     private User userFk;
 }

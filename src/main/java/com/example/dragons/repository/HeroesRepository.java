@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HeroesRepository extends JpaRepository<Heroes,Integer> {
-    Optional<Heroes> findByName(String name);
 
     @Query(nativeQuery = true, value = "SELECT * FROM heroes " +
             "where user_fk = :userFk")
     List<Heroes> findByUserFk(@Param("userFk") int userFk);
+
+//    @Query(select * from Heroes )
+
 }
