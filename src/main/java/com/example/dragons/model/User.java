@@ -28,4 +28,6 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Heroes> heroes;
+
+    public static int ID;
 }

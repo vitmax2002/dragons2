@@ -1,9 +1,6 @@
 package com.example.dragons.controller;
 
-import com.example.dragons.model.Heroes;
-import com.example.dragons.model.RaspunsDto;
-import com.example.dragons.model.User;
-import com.example.dragons.model.UserDto2;
+import com.example.dragons.model.*;
 import com.example.dragons.repository.HeroesRepository;
 import com.example.dragons.repository.Text1Alegeri1Repository;
 import com.example.dragons.repository.UserRepository;
@@ -35,16 +32,51 @@ public class TestController {
 //    }
 
     @PostMapping("/add")
-    public ResponseEntity<Heroes> addHeroe(@RequestBody Heroes hero){
+    public ResponseEntity<Object> addHeroe(@RequestBody HeroesDto heroDto){
+        User currentUser=userRepository.findById(User.ID).get();
+        List<Heroes> heroes=heroesRepository.findByUserFk(User.ID);
+        for(Heroes hero:heroes){
+            if(hero.getName().equals(heroDto.name())){
+                return ResponseEntity.ok().body("Erou cu asa nume deja exista");
+            }
+        }
+        Heroes hero =new Heroes();
+        hero.setHp(100);
+        hero.setName(heroDto.name());
+        hero.setClasa(heroDto.clasa());
+        hero.setRoomId(1);
+        hero.setUserFk(currentUser);
+        if(heroDto.clasa().equals("Fighter")){
+            hero.setStrength(3);
+            hero.setDexterity(0);
+            hero.setConstitution(3);
+            hero.setIntelect(0);
+            hero.setWisdom(2);
+            hero.setCharizma(-1);
+        }
+        else if(heroDto.clasa().equals("Paladin")){
+            hero.setStrength(3);
+            hero.setDexterity(-1);
+            hero.setConstitution(3);
+            hero.setIntelect(-1);
+            hero.setWisdom(0);
+            hero.setCharizma(3);
+        }
+        else if(heroDto.clasa().equals("Wizard")){
+            hero.setStrength(-1);
+            hero.setDexterity(3);
+            hero.setConstitution(-1);
+            hero.setIntelect(3);
+            hero.setWisdom(3);
+            hero.setCharizma(0);
+        }
        Heroes hero2= heroesRepository.save(hero);
        return ResponseEntity.ok().body(hero2);
     }
 
     @PostMapping("/heroes")
     public ResponseEntity<List<Heroes>> getHeroes(@RequestParam(name = "userId") Integer userId){
-//        User user= userRepository.findById(userId).get();
         List<Heroes> heroes=heroesRepository.findByUserFk(userId);
-
         return ResponseEntity.ok().body(heroes);
     }
 

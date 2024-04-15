@@ -15,7 +15,4 @@ public interface HeroesRepository extends JpaRepository<Heroes,Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM heroes " +
             "where user_fk = :userFk")
     List<Heroes> findByUserFk(@Param("userFk") int userFk);
-
-//    @Query(select * from Heroes )
-
 }

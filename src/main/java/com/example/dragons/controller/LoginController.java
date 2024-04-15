@@ -45,12 +45,13 @@ public class LoginController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Parola este gresita");
             }
         }
-        List<Heroes> heroes = heroesRepository.findByUserFk(user2.getId());
-        List<HeroesDto> heroseDto =new ArrayList<>();
-        for(var hero: heroes){
-            heroseDto.add(new HeroesDto(hero.getId(),hero.getHp(),hero.getName(),hero.getClasa(),hero.getRoomId()));
-        }
-        UserDto userDto=new UserDto(user2.getUsername(), heroseDto);
+        User.ID=user2.getId();
+//        List<Heroes> heroes = heroesRepository.findByUserFk(user2.getId());
+//        List<HeroesDto> heroseDto =new ArrayList<>();
+//        for(var hero: heroes){
+//            heroseDto.add(new HeroesDto(hero.getId(),hero.getHp(),hero.getName(),hero.getClasa(),hero.getRoomId()));
+//        }
+        UserDto userDto=new UserDto(user2.getUsername(), user2.getId());
         return ResponseEntity.ok(userDto);
     }
 }
