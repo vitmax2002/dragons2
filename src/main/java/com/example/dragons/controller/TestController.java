@@ -75,6 +75,7 @@ public class TestController {
        Heroes hero2= heroesRepository.save(hero);
        return ResponseEntity.ok().body(hero2);
     }
+//    @DeleteMapping("/delete")
 
     @PostMapping("/heroes")
     public ResponseEntity<List<Heroes>> getHeroes(@RequestParam(name = "userId") Integer userId){
@@ -84,8 +85,9 @@ public class TestController {
 
 
     @PostMapping
-    public ResponseEntity<RaspunsDto> metoda(@RequestParam(name = "roomId") Integer val,@RequestParam(name = "chId") Integer chId){
+    public ResponseEntity<RaspunsDto> metoda(@RequestParam(name = "roomId") Integer val,@RequestParam(name = "chId" ,required = false) Integer chId){
         System.out.println(val);
+        System.out.println(chId);
         List<String> obj= text1Alegeri1.valorile2(val);
         List<String> obj2=new ArrayList<>();
         List<Object> obj3=new ArrayList<>();
