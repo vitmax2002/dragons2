@@ -84,7 +84,7 @@ public class TestController {
 
 
     @PostMapping
-    public ResponseEntity<RaspunsDto> metoda(@RequestParam(name = "roomId") Integer val){
+    public ResponseEntity<RaspunsDto> metoda(@RequestParam(name = "roomId") Integer val,@RequestParam(name = "chId") Integer chId){
         System.out.println(val);
         List<String> obj= text1Alegeri1.valorile2(val);
         List<String> obj2=new ArrayList<>();
@@ -117,6 +117,10 @@ public class TestController {
         obj3.add(alegerile);
         obj3.add(drumurile);
         RaspunsDto raspuns=new RaspunsDto(obj2.get(0),alegerile,drumurile);
+
+        Heroes hero=heroesRepository.findById(chId).get();
+        hero.setRoomId(val);
+        heroesRepository.save(hero);
 
 //        return ResponseEntity.ok(obj3);
         return ResponseEntity.ok(raspuns);
