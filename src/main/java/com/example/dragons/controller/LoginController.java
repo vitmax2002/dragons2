@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/logIn")
+@RequestMapping("/")
 @CrossOrigin("http://localhost:4200")
 public class LoginController {
 
@@ -25,8 +25,21 @@ public class LoginController {
         this.userRepository = userRepository;
         this.heroesRepository = heroesRepository;
     }
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody UserDto2 user){
+        Optional<User> user3=userRepository.findByLogin(user.login());
+        if(user3.isPresent()){
+            return ResponseEntity.ok().body("Asa login deja exista");
+        }
+        User user2=new User();
+        user2.setLogin(user.login());
+        user2.setUsername(user.username());
+        user2.setPassword(user.password());
+        userRepository.save(user2);
+        return ResponseEntity.ok().body("Te-ai inregistrat cu succes");
+    }
 
-    @PostMapping
+    @PostMapping("/logIn")
     public ResponseEntity<Object> login(@RequestBody UserDto2 user) {
         System.out.println(user.login());
         Optional<User> user1=userRepository.findByLogin(user.login());
@@ -54,4 +67,6 @@ public class LoginController {
         UserDto userDto=new UserDto(user2.getUsername(), user2.getId());
         return ResponseEntity.ok(userDto);
     }
+
+
 }
