@@ -22,8 +22,20 @@ public class Alegeri {
     private String alegere;
 
     @Column(name = "drum")
-    private int drum;
+    private Integer drum;
 
     @Column(name = "textul2")
     private String text;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "roll_count")
+    private Integer rollCount;
+
+    @Column(name = "max_rand")
+    private Integer maxRand;
+
+    @Column(name = "roll_score")
+    private Integer rollScore;
 }

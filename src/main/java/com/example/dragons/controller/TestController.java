@@ -1,15 +1,14 @@
 package com.example.dragons.controller;
 
 import com.example.dragons.model.*;
+import com.example.dragons.repository.AlegeriRepository;
 import com.example.dragons.repository.HeroesRepository;
 import com.example.dragons.repository.Text1Alegeri1Repository;
 import com.example.dragons.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/date")
@@ -18,11 +17,14 @@ public class TestController {
     private final Text1Alegeri1Repository text1Alegeri1;
     private final UserRepository userRepository;
     private final HeroesRepository heroesRepository;
+    private final AlegeriRepository alegeriRepository;
+    private final Random random=new Random();
 
-    public TestController(Text1Alegeri1Repository text1Alegeri1, UserRepository userRepository, HeroesRepository heroesRepository) {
+    public TestController(Text1Alegeri1Repository text1Alegeri1, UserRepository userRepository, HeroesRepository heroesRepository, AlegeriRepository alegeriRepository) {
         this.text1Alegeri1 = text1Alegeri1;
         this.userRepository = userRepository;
         this.heroesRepository = heroesRepository;
+        this.alegeriRepository = alegeriRepository;
     }
 
 
@@ -85,7 +87,7 @@ public class TestController {
 
 
     @PostMapping
-    public ResponseEntity<RaspunsDto> metoda(@RequestParam(name = "roomId") Integer val,@RequestParam(name = "chId" ,required = false) Integer chId){
+    public ResponseEntity<Object> metoda(@RequestParam(name = "roomId") Integer val,@RequestParam(name = "chId" ) Integer chId){
         System.out.println(val);
         System.out.println(chId);
         List<String> obj= text1Alegeri1.valorile2(val);
@@ -105,6 +107,33 @@ public class TestController {
         for(int i=2;i<obj2.size();i+=3){
             drumurile.add(obj2.get(i));
         }
+
+
+        Alegeri alegereAction=alegeriRepository.findById(val).get();
+        if(alegereAction.getType()!=null){
+            int sum=0;
+            int it=0;
+            while(it<alegereAction.getRollCount()){
+                int randomNumber = random.nextInt(alegereAction.getMaxRand()) + 1;
+                sum+=randomNumber;
+                it++;
+            }
+
+            if(sum>= alegereAction.getRollScore()){
+                Collections.sort(drumurile);
+                CistigDto cistigDto=new CistigDto("Ai dat damage "+ sum +" din "+ alegereAction.getRollScore()+" si ai cistigat","continue",drumurile.get(0));
+                return ResponseEntity.ok(cistigDto);
+            }
+            else{
+                Collections.sort(drumurile);
+                CistigDto cistigDto=new CistigDto("Ai dat damage "+ sum +" din "+ alegereAction.getRollScore()+" si ai pierdut","continue",drumurile.get(1));
+
+                return ResponseEntity.ok(cistigDto);
+
+            }
+
+        }
+
 
         if(alegerile.size()==2){
             alegerile.add("");
