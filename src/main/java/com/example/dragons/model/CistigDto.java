@@ -4,6 +4,6 @@ import lombok.NoArgsConstructor;
 
 
 public record CistigDto (String text,
-                        String alegeri,
-                        String goTo){
+                        String[] alegeri,
+                        String[] goTo){
 }

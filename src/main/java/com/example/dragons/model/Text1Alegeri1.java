@@ -20,11 +20,13 @@ public class Text1Alegeri1 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "id_kk1")
+    @Column(name = "id_kk1")
     private List<Alegeri> alegeri1;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "id_fk2")
+    @Column(name = "id_fk2")
     private List<Alegeri> alegeri2;
 }

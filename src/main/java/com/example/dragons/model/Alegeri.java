@@ -21,8 +21,8 @@ public class Alegeri {
     @Column(name = "textul")
     private String alegere;
 
-    @Column(name = "drum")
-    private Integer drum;
+//    @Column(name = "drum")
+//    private Integer drum;
 
     @Column(name = "textul2")
     private String text;

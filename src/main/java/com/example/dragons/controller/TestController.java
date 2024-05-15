@@ -121,12 +121,12 @@ public class TestController {
 
             if(sum>= alegereAction.getRollScore()){
                 Collections.sort(drumurile);
-                CistigDto cistigDto=new CistigDto("Ai dat damage "+ sum +" din "+ alegereAction.getRollScore()+" si ai cistigat","continue",drumurile.get(0));
+                CistigDto cistigDto=new CistigDto("Ai dat damage "+ sum +" din "+ alegereAction.getRollScore()+" si ai cistigat", new String[]{"continue","",""}, new String[]{drumurile.get(0),"",""});
                 return ResponseEntity.ok(cistigDto);
             }
             else{
                 Collections.sort(drumurile);
-                CistigDto cistigDto=new CistigDto("Ai dat damage "+ sum +" din "+ alegereAction.getRollScore()+" si ai pierdut","continue",drumurile.get(1));
+                CistigDto cistigDto=new CistigDto("Ai dat damage "+ sum +" din "+ alegereAction.getRollScore()+" si ai pierdut", new String[]{"continue","",""}, new String[]{drumurile.get(1),"",""});
 
                 return ResponseEntity.ok(cistigDto);
 
